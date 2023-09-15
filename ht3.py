@@ -37,7 +37,7 @@ sentence = ' '.join(re.findall(r'\S*[.]', new_string)).replace('.', '').capitali
 # print(sentence)
 
 # join formatted text and new sentence
-res = "{} {}".format(new_string, sentence)
+res = "{} {}".format(new_string, sentence) + '.'
 print(res)
 
 # Task: to count number of spaces
