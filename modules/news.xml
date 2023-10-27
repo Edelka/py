@@ -1,0 +1,11 @@
+<input_data>
+  <topic>
+    <type text="Something happened: XML is there!! 10/27/2023!" city = "Kyiv">News2</type>
+  </topic>
+  <topic>
+    <type text="XML adv !!" untill_date="11/03/2024">Private Adv4</type>
+  </topic>
+  <topic>
+    <type text="Some book" author="Some author">Favorite Book</type>
+   </topic>
+</input_data>
