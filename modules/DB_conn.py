@@ -17,7 +17,8 @@ class DBConnection:
             'create table if not exists City (city char, lon real, lat real)')
 
     def select_city(self, city1):
-        return self.cur.execute(f"SELECT city, lon, lat FROM City WHERE city = {city1}").fetchall()
+        return self.cur.execute(f"SELECT city, lon, lat FROM City WHERE city = \'{city1}\'").fetchall()
+
 
     def insert_city(self, inp1, inp2, inp3):
         self.cur.execute(f"insert into City (city, lon, lat) values ('{inp1}\', \'{inp2}\', \'{inp3}\')")

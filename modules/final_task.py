@@ -6,35 +6,38 @@
 from math import radians, cos, sin, asin, sqrt
 from DB_conn import DBConnection
 
-# dbcon = DBConnection()
-# # dbcon.create_table_cities()
-# # print(DBConnection.select_city(DBConnection(), 'City'))
-# input_type = input('Please type the city name: ')
-# try:
-#     if input_type != dbcon.select_city(dbcon):
-#         input_lon = input('Please type lon: ')
-#         input_lat = input('Please type lat: ')
-#         dbcon.insert_city(input_type, input_lon, input_lat)
-#     else:
-#
-#         print(input_type)
-# except Exception as e:
-#     print(e)
-# print(DBConnection.select_city(DBConnection(), 'city'))
-
 dbcon = DBConnection()
+
 # dbcon.create_table_cities()
-input_type = input('Please type the city name: ')
-lon1 = float(input('Please type lon: '))
-print(type(lon1))
-lat1 = float(input('Please type lat: '))
-dbcon.insert_city(input_type, lon1, lat1)
+# print(DBConnection.select_city(DBConnection(), 'City'))
+lon = 0
+lat = 0
 
-input_type2 = input('Please type the destination city name: ')
-lon2 = float(input('Please type dest lon: '))
-lat2 = float(input('Please type dest lat: '))
-dbcon.insert_city(input_type2, lon2, lat2)
 
+def get_city_data(dest):
+    input_city = input(f'Please type the{dest} city name: ')
+    try:
+        city_tuple = dbcon.select_city(input_city)
+        if len(city_tuple) == 0:
+            # (input_type)
+            lon = float(input('Please type lon: '))
+            lat = float(input('Please type lat: '))
+            dbcon.insert_city(input_city, lon, lat)
+            return lon, lat, input_city
+        elif len(city_tuple) > 0:
+            lon = city_tuple[0][1]
+            lat = city_tuple[0][2]
+            # print(lon, lat)
+            return lon, lat, input_city
+    except Exception as e:
+        print(e)
+    dbcon.close_cursor()
+
+
+a = get_city_data('')
+b = get_city_data(' destination')
+# print(a)
+# print(b)
 
 def distance(lat1, lat2, lon1, lon2):
     # The math module contains a function named
@@ -58,7 +61,8 @@ def distance(lat1, lat2, lon1, lon2):
     return c * r
 
 
-dist = distance(lat1, lat2, lon1, lon2)
+dist = distance(a[0], b[0], a[1], b[1])
 
-print(f"Distance between {input_type} and {input_type2} is equal to: {dist}km")
-print(DBConnection.select_city(DBConnection(), 'city'))
+# %.3f trim for 3 signs after comma
+print(f"Distance between {a[2]} and {b[2]} is equal to: %.3fkm" % dist)
+
